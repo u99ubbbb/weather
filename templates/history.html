@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ city }}の閲覧履歴</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+
+    <style>
+
+        body{
+            font-family:"Noto Sans JP",sans-serif;
+            background:#eef8ff;
+            margin:0;
+            padding:40px;
+            text-align:center;
+        }
+
+        h1{
+            color:#2b5ca8;
+            margin-bottom:40px;
+            font-size:40px;
+        }
+
+        .card{
+            width:420px;
+            margin:20px auto;
+            background:white;
+            border-radius:20px;
+            padding:25px;
+            box-shadow:0 8px 20px rgba(0,0,0,.15);
+        }
+
+        .date{
+            color:gray;
+            margin-bottom:15px;
+        }
+
+        .weather{
+            font-size:32px;
+            font-weight:bold;
+            color:#2b5ca8;
+            margin-bottom:20px;
+        }
+
+        .info{
+            font-size:20px;
+            line-height:2;
+        }
+
+        .back{
+            display:inline-block;
+            margin-top:40px;
+            text-decoration:none;
+            color:white;
+            background:#2b5ca8;
+            padding:12px 30px;
+            border-radius:30px;
+            font-weight:bold;
+        }
+
+        .back:hover{
+            background:#1d4680;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<h1>{{ city }} の閲覧履歴</h1>
+
+{% for row in rows %}
+
+<div class="card">
+
+    <div class="date">
+        {{ row[7] }}
+    </div>
+
+    <div class="weather">
+        {{ row[2] }}
+    </div>
+
+    <div class="info">
+         最高気温：{{ row[3] }}℃<br>
+         最低気温：{{ row[4] }}℃<br>
+         湿度：{{ row[5] }}％<br>
+         風速：{{ row[6] }} m/s
+    </div>
+
+</div>
+
+{% endfor %}
+
+<a class="back" href="/weather/{{ city }}">
+    ← 天気に戻る
+</a>
+
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>{{city}}</title>
+
+    <style>
+        .forecast{
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 20px;
+            flex-wrap: nowrap;
+        }
+        .forecast-card{
+            background: white;
+            width: 65px;
+            padding: 8px;
+            text-align: center;
+        }
+        .forecast-card p{
+            margin: 4px 0;
+            font-size:14px;
+        }
+        .icon{
+            font-size: 24px;
+        }
+        body{
+            font-family: sans-serif;
+            text-align: center;
+            background: transparent;
+            margin: 0;
+            padding: 40px;
+        }
+        .card{
+            display: inline-block;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0,.1);
+            min-width: 250px;
+        }
+        .weather{
+            font-size: 22px;
+            margin: 10px 0;
+        }
+        .temp{
+            font-size: 40px;
+            font-weight: bold;
+            margin: 15px,0;
+        }
+        .max{
+            color:#ff5a5a;
+        }
+        .min{
+            color:#4a90e2;
+        }
+        .back{
+            margin-top: 20px;
+            display:inline-block
+        }
+
+        .daily-forecast{
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .daily-card{
+            background: white;
+            width: 90px;
+            padding: 12px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .daily-card p{
+            margin: 6px 0;
+        }
+
+        .today{
+            font-size:18px;
+            color:#555;
+            margin-bottom:10px;
+        }
+    </style>
+</head>
+<body style = "background-color: {{ weather.bg_color }};">
+    <p>{{ today }}</p>
+    <h1>{{city}}</h1>
+    <div class="card">
+        <p>{{weather["icon"]}}{{weather["weather"]}}</p>
+        <div class="temp">
+            <span class="max">{{weather["max_temp"]}}℃</span>
+            /
+            <span class="min">{{weather["min_temp"]}}℃</span>
+        </div>
+    <p>湿度{{weather["humidity"]}}%</p>
+    <p>風速{{weather["wind_speed"]}} m/s</p>
+
+    <h2>3時間ごとの予報</h2>
+
+<div class="forecast">
+
+    {% for item in weather.forecast %}
+
+    <div class="forecast-card">
+        <p>{{ item.time }}</p>
+        <p class="icon">{{ item.icon }}</p>
+        <p>{{ item.temp }}℃</p>
+    </div>
+    {% endfor %}
+</div>
+<h2>5日間の天気予報</h2>
+
+<div class="daily-forecast">
+
+    {% for day in weather.daily_forecast %}
+
+    <div class="daily-card">
+        <p>{{ day.date }}</p>
+        <p class="icon">{{ day.icon }}</p>
+        <p>{{ day.temp }}℃</p>
+    </div>
+
+    {% endfor %}
+
+</div>
+    </div>
+    <br>
+    <a href="/history/{{ city }}">閲覧履歴を見る</a>
+    <br>
+    <a class="back" href="/">地域選択に戻る</a>
+<hr>
+<p style="font-size:12px;color:gray;">
+    天気データ提供
+    <a href="https://openweathermap.org/"target="_black">
+        openweathermap
+    </a>
+</p>
+</body>
+</html>
